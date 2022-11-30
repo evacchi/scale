@@ -18,10 +18,7 @@ global.TextDecoder = TextDecoder as typeof global["TextDecoder"];
 
 import { Context, Request, Response, StringList } from "../generated/generated";
 
-import { encodeString, decodeString, encodeInt64, decodeInt64, encodeUint8Array, decodeUint8Array, encodeInt32, decodeInt32, encodeMap, Kind, decodeMap, encodeArray, decodeArray } from "@loopholelabs/polyglot-ts";
-
 console.log("Hello from typescript parcel build");
-console.log("The function is " + decodeString);
 
 function mainFunction() {
   console.log("Main function called");
@@ -31,11 +28,11 @@ function runNext(context: Context): Context {
   // context -> bytes
   let buf = context.encode(new Uint8Array());
   let data = Array.from(buf);
-    
+
   // Call next()
   let nextfn = (global as any).scale_fn_next;
   let data2 = nextfn(data);
-  
+
   // bytes -> context
   const oContext = Context.decode(Uint8Array.from(data2)).value;
   return oContext;
@@ -49,7 +46,7 @@ function runFunction(data: number[]): number[] {
   // Call back to next()
   const iContext = runNext(orgContext);
 
-  // Lets add a header...
+  // Lets add a header to show things are working...
   iContext.Response.Headers.set("FROM_TYPESCRIPT", new StringList(["TRUE"]));
 
   let buf = iContext.encode(new Uint8Array());
