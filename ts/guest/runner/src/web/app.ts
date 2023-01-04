@@ -18,8 +18,6 @@ global.TextDecoder = TextDecoder as typeof global["TextDecoder"];
 
 import { Context, Request, Response, StringList } from "../generated/generated";
 
-console.log("Hello from typescript parcel build");
-
 function mainFunction() {
   console.log("Main function called");
 }
